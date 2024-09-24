@@ -3,19 +3,20 @@ Documentation        Suite de testes de matrícula de alunos
 ...                  Administrador, uma vez logado, consegue matricular alunos na academia
 
 Resource    ../resources/base.resource
-Library    OperatingSystem
 
 *** Test Cases ***
 Deve matricular um aluno
-    ${admin}        Create Dictionary
-    ...    email=admin@smartbit.com
-    ...    pass=qacademy
-    ...    name=Admin
+    ${admin}        Get fixture    admin
+    ${student}      Get fixture    student
+
+    Reset student enroll    ${student}[email]
 
     Do login    ${admin}
 
     Go to enrolls
     Go to enrolls form
-    Select student    Falcão
-    Select plan    Smart
+    Select student    ${student}[name]
+    Select plan    ${student}[enroll][plan]
     Select date
+    Submmit enroll form
+    Verify toaster    Matrícula cadastrada com sucesso

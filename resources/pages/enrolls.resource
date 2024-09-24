@@ -40,3 +40,6 @@ Select date
     # Keyboard Key    press    0
     # Keyboard Key    press    2
     # Keyboard Key    press    4
+
+Submmit enroll form
+    Click    css=button >> text=Salvar
