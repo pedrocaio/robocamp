@@ -6,17 +6,20 @@ Resource    ../resources/base.resource
 
 *** Test Cases ***
 Deve matricular um aluno
-    ${admin}        Get fixture    admin
-    ${student}      Get fixture    student
+    ${admin}             Get fixture    admin
+    ${student}           Get fixture    student
 
-    Reset student enroll    ${student}[email]
+    Reset student        ${student}[student][email]
 
-    Do login    ${admin}
+    ${token}             Get services token    ${admin}
+    POST new student     ${token}    ${student}[student]
+
+    Do login             ${admin}
 
     Go to enrolls
     Go to enrolls form
-    Select student    ${student}[name]
-    Select plan    ${student}[enroll][plan]
+    Select student       ${student}[student][name]
+    Select plan          ${student}[enroll][plan]
     Select date
     Submmit enroll form
-    Verify toaster    Matrícula cadastrada com sucesso
+    Verify toaster       Matrícula cadastrada com sucesso
